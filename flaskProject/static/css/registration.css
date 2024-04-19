@@ -1,0 +1,28 @@
+.container{
+    height: 300px;
+}
+label{
+    margin-top: 20px;
+    color: white;
+    text-align: left;
+}
+
+input{
+    width:100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    height: 30px;
+
+}
+
+button{
+    width: 100%;
+    font-size: 20px;
+    background-color: #00564D;
+    color: white;
+    border-radius: 12px;
+}
+
+
+

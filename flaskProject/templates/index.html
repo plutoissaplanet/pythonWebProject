@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/indexstyle.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="main_div">
+        <div class="main_titles">
+            <h1>Welcome to Pluto! </h1>
+            <h2>A place to manage your subscriptions.</h2>
+        </div>
+
+        <div class="container">
+            <form action="/login" method="post">
+                <label for="username">Username:</label><br>
+                <div id="loginid"><input type="text" id="username" name="username"><br></div>
+                <label for="password">Password:</label><br>
+                <div id="loginid"><input type="password" id="password" name="password"><br>
+                    <button  id="loginbttn">Log in</button> <br>
+                </div>
+
+            </form>
+
+            <div class="registration_bttn">
+                <h3>or</h3>
+                <form action="/registration_page" method="get">
+                    <button onclick="window.location.href='/registration_page'"> Register</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

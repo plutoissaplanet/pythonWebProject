@@ -1,0 +1,60 @@
+
+.container{
+    height: 350px;
+    align-content: center;
+}
+
+input{
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    width:90%;
+    height: 30px;
+}
+.main_titles{
+    size:300px 300px;
+    text-align: center;
+}
+
+button{
+    border-radius: 12px;
+    height: 40px;
+}
+
+#loginid{
+    text-align: center;
+}
+#loginbttn{
+    margin-top: 30px;
+    width: 90%;
+    background-color: #00564D;
+    color:white;
+
+
+}
+
+button{
+    font-size: 20px;
+}
+
+label{
+    margin-left: 35px;
+    color:white;
+
+}
+
+.registration_bttn{
+    text-align: center;
+
+}
+
+.registration_bttn button{
+    width:90%;
+    background-color: #00564D;
+    color: white;
+
+}
+
+
+
+

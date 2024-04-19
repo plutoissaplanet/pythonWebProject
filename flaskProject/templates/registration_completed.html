@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registration.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="main_div">
+        <h1> Registration Successful!</h1>
+        <h2> Please return to the login page.</h2>
+    <button onclick="window.location.href='/'"> Back to login </button>
+    </div>
+{% endblock %}

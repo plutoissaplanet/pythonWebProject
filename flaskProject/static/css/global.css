@@ -1,0 +1,44 @@
+.main_div{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    size:1000px 1000px
+}
+
+h1{
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 100px;
+    color:#00897B;
+}
+
+h2{
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 40px;
+    font-weight: lighter;
+    color:#00897B;
+}
+
+h3{
+    font-family: "Bebas Neue", sans-serif;
+    color:#00897B;
+}
+
+button{
+    font-family: "Bebas Neue", sans-serif;
+}
+
+label {
+    font-family: "Bebas Neue", sans-serif;
+}
+
+body{
+    background: #282828;
+}
+
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
