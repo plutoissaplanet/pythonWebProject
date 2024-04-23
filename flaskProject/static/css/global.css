@@ -1,3 +1,15 @@
+/**
+Color palette to use:
+
+Light cyan = #00897B
+Darker cyan = #00564D
+
+Dark grey = #282828
+Lighter grey = #363636
+Lightest gray = #969696
+*/
+
+
 .main_div{
     position: absolute;
     top: 40%;
@@ -42,3 +54,11 @@ body{
   font-weight: 400;
   font-style: normal;
 }
+
+
+#error_msg{
+    font-family: "Bebas Neue", sans-serif;
+    color: red;
+    text-align: center;
+}
+

@@ -1,0 +1,62 @@
+/**
+Color palette to use:
+
+Light cyan = #00897B
+Darker cyan = #00564D
+
+Dark grey = #282828
+Lighter grey = #363636
+Lightest gray = #969696
+*/
+
+.main_div{
+    top: 40%;
+
+}
+#backbttn{
+    width: 50px;
+    height: 50px;
+}
+
+label{
+
+    color:#00897B;
+    font-size: 20px;
+}
+
+input{
+    border-radius: 12px;
+    margin-bottom: 20px;
+    width:100%;
+    height: 30px;
+}
+
+#price{
+    width: 80%;
+}
+
+#substart{
+    width:18%;
+}
+
+select{
+    border-radius: 12px;
+    margin-bottom: 20px;
+    height: 30px;
+    width:18%;
+}
+
+button{
+    width: 100%;
+    height: 30px;
+    border-radius: 12px;
+    background-color: #00564D;
+    color:white;
+
+}
+
+.smallerdiv{
+    display:flex;
+    text-align: center;
+}
+

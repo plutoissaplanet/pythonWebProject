@@ -6,8 +6,31 @@
 
 {% block body %}
 
-    <div>
+    <div class="main_div">
+        {% if current_user %}
+        <h1> Welcome back, {{ current_user.username }}</h1>
+        {% endif %}
 
+        <div class = "menu">
+            <a href="/input_page">
+                <img alt="Input" border="0" src="../static/Photos/UI/input.png">
+                <h3>Input subscriptions</h3>
+            </a>
+            <a href="/stats_page">
+                <img alt="Statistics" border="0" src="../static/Photos/UI/pie-chart.png">
+                <h3> Statistics</h3>
+            </a>
+             <a href="profile.html">
+                <img alt="Logout" border="0" src="../static/Photos/UI/user.png">
+                <h3> Profile </h3>
+            </a>
+            <a href="/logout">
+                <img alt="Logout" border="0" src="../static/Photos/UI/logout.png">
+                <h3> Logout </h3>
+            </a>
+        </div>
     </div>
+
+
 
 {% endblock %}

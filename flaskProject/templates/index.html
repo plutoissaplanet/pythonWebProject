@@ -18,7 +18,15 @@
                 <label for="username">Username:</label><br>
                 <div id="loginid"><input type="text" id="username" name="username"><br></div>
                 <label for="password">Password:</label><br>
+
+
+
                 <div id="loginid"><input type="password" id="password" name="password"><br>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div id="error_msg"> {{ messages[0]}}</div>
+                    {% endif %}
+                    {% endwith %}
                     <button  id="loginbttn">Log in</button> <br>
                 </div>
 
@@ -29,8 +37,8 @@
                 <form action="/registration_page" method="get">
                     <button onclick="window.location.href='/registration_page'"> Register</button>
                 </form>
-
             </div>
+
         </div>
     </div>
 

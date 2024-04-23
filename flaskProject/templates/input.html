@@ -1,10 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{%block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/input_page.css') }}">
+
+{%endblock%}
+
+{% block body %}
+    <div class="back">
+        <a href="/mainPage">
+                <img id="backbttn" alt="Input" border="0" src="../static/Photos/UI/back-arrow.png">
+        </a>
+    </div>
+
+    <div class="main_div">
+        <h1>Input Subscription</h1>
+
+        <div class="input_div">
+            <form action="/addnewsubscription" method="post">
+
+                <label>Name: </label> <br>
+                <input type="text" list="subslist" id="subname" name="subname"><br>
+
+                <label> Price:</label> <br>
+                <input type="text" id="price" name="price">
+                <select id="valuta" name="valuta">
+                    <option name="HUF" id="huf"> HUF </option>
+                    <option name="EUR" id="eur"> EUR </option>
+                    <option name="USD" id="usd"> USD </option>
+                </select> <br>
+
+            <div class="smallerdiv">
+                  <label>Subscription type:</label> <br>
+                <select id="subtype" name="subtype">
+                    <option name= "Monthly" id="monthly">Monthly</option>
+                    <option name="Yearly" id="yearly">Yearly</option>
+                    <option name="One time pay" id="onetime">One time pay</option>
+                </select>
+
+                <label>Subscription Category: </label><br>
+                <select id="subcategory" name="subcategory">
+                    <option id="music">Music</option>
+                    <option id="gaming"> Gaming</option>
+                    <option id="streaming"> Streaming</option>
+                </select>
+
+            </div><br>
+
+
+
+                <datalist id="subslist">
+                    {% for subs in listofsubs %}
+                        <option value="{{ subs.name }}"></option>
+                    {% endfor %}
+                </datalist>
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div id="error_msg"> {{ messages[0]}}</div>
+                {% endif %}
+                {% endwith %}
+
+            <button type="submit">Submit</button>
+
+
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

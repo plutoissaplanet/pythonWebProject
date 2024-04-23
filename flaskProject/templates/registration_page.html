@@ -14,9 +14,15 @@
     <div class="container">
         <form action='/register' method="POST">
             <label for="username">Username: </label><br>
-            <input type="text" id="'username" name="username"><br>
+            <input type="text" id="username" name="username"><br>
             <label for="password">Password:</label><br>
             <input type="password" id="password" name="password"><br>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div id="error_msg"> {{ messages[0]}}</div>
+            {% endif %}
+            {% endwith %}
 
             <button type="submit">Register</button>
         </form>
