@@ -5,7 +5,6 @@ from sqlalchemy import delete
 import datetime
 from sqlalchemy import DateTime
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mindenszipiszuper.db'
 app.config["SECRET_KEY"] = "PEDROPEDROPEDRO"
@@ -73,7 +72,8 @@ def stats_page():
 @app.route('/input_page')
 def input_page():
     listofsubs = ListOfSubs.query.all()
-    return render_template('input.html', listofsubs=listofsubs)
+    usersubs = User.query.all()
+    return render_template('input.html', listofsubs=listofsubs, usersubs=usersubs)
 
 
 @app.route('/registration_page')
@@ -142,70 +142,60 @@ def logout():
 
 @app.route("/addnewsubscription", methods=["GET", "POST"])
 def add_new_subscription():
-    if request.method == "POST":
-        sub = ListOfSubs.query.filter_by(name=request.form.get('subname'))
-        if sub:
-            new_sub= Subs(
-                name=request.form.get('subname'),
-                category=request.form.get('subcategory'),
-                price=request.form.get('price'),
-                valuta=request.form.get('valuta'),
-                type_of_sub=request.form.get('subtype'),
-                user_id=current_user.id
-            )
-            add(new_sub)
-            if add(new_sub):
-                flash("Subscription added successfully!")
-            return render_template("input.html")
+    usersubs = User.query.all()
 
-        elif not request.form.get("subname"):
-            flash("Please enter name")
+    if request.method == "POST":
+        sub_name = request.form.get('subname')
+        if not sub_name:
+            flash("Please enter the name of your subscription!")
+        sub_cat = request.form.get('subcategory')
+        sub_price = request.form.get('price')
+        if not sub_price:
+            flash("Please enter the price of your subscription")
         else:
+            try:
+                sub_price = float(sub_price)
+            except ValueError:
+                flash("Please enter a valid price")
+                return render_template("input.html")
+
+        sub_valuta = request.form.get('valuta')
+        sub_type = request.form.get('subtype')
+
+        existingsub = ListOfSubs.query.filter_by(name=sub_name).one_or_none()
+        if existingsub is None:
             new_sub = ListOfSubs(
-                name=request.form.get("subname"),
+                name=sub_name,
                 logo_url=""
             )
-
             db.session.add(new_sub)
 
-            new_sub = Subs(
-                name=request.form.get('subname'),
-                category=request.form.get('subcategory'),
-                price=request.form.get('price'),
-                valuta=request.form.get('valuta'),
-                type_of_sub=request.form.get('subtype'),
-                user_id=current_user.id
-            )
+        new_sub = Subs(
+            name=sub_name,
+            category=sub_cat,
+            price=sub_price,
+            valuta=sub_valuta,
+            type_of_sub=sub_type,
+            user_id=current_user.id
+        )
+        add(new_sub)
+        db.session.commit()
+        flash("Subscription added successfully!")
 
-            add(new_sub)
-            db.session.commit()
-            return render_template("input.html")
-    return render_template("input.html")
+    return render_template("input.html", usersubs=usersubs)
 
 
 def add(subscription):
     try:
         if current_user.is_authenticated:
-            user=current_user
+            user = current_user
             user.subscriptions.append(subscription)
-            db.session.commit()
             return True
     except Exception as e:
         flash("Something went wrong. Subscription is not added to your profile")
         print(e)
         db.session.rollback()
     return False
-
-
-
-
-
-# @app.route("/addnewplatform", methods=["GET", "POST"])
-# def add_new_platform():
-#     if request.method == "POST":
-#         temp = request.form.get("subsname")
-#         if temp == "Add new platform":
-#
 
 
 if __name__ == '__main__':

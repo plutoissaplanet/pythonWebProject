@@ -9,54 +9,90 @@ Lighter grey = #363636
 Lightest gray = #969696
 */
 
-.main_div{
+.main_div {
     top: 40%;
 
 }
-#backbttn{
+
+#backbttn {
     width: 50px;
     height: 50px;
 }
 
-label{
+label {
 
-    color:#00897B;
+    color: #00897B;
     font-size: 20px;
 }
 
-input{
+input {
     border-radius: 12px;
     margin-bottom: 20px;
-    width:100%;
+    width: 70%;
     height: 30px;
 }
 
-#price{
-    width: 80%;
+#price {
+    width: 70%;
 }
 
-#substart{
-    width:18%;
+#substart {
+    width: 18%;
 }
 
-select{
+select {
     border-radius: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     height: 30px;
-    width:18%;
+    width: 20%;
 }
 
-button{
+button {
     width: 100%;
     height: 30px;
     border-radius: 12px;
     background-color: #00564D;
-    color:white;
+    color: white;
 
 }
 
-.smallerdiv{
-    display:flex;
-    text-align: center;
+.list_of_user_subs {
+    background-color: #363636;
+    height: 380px;
+    width: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+    margin-left: 50px;
+    border-radius: 12px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
+.input_div {
+    background-color: #363636;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 380px;
+    width: 350px;
+    border-radius: 12px;
+}
+
+.bigthing {
+    display: flex;
+}
+
+.header{
+    position: fixed;
+    width: 198px;
+    background-color: #363636;
+    margin-bottom: 20px;
+    z-index: 2;
+}
+
+.content{
+    z-index: 1;
+    position: relative;
+    overflow-y: auto;
+    margin-top: 40px;
+}
