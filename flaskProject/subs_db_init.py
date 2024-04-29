@@ -12,15 +12,18 @@ def check_if_exists(data):
     return subs is not None
 
 
+
+
 with app.app_context():
-    usersubs = Subs.query.filter_by(user_id=1).all()
-    nr_gaming =0
-    category =[]
-    for subs in usersubs:
-        category.append(subs.category)
-        nr_gaming=category.count("Gaming")
-    print(category)
-    print(nr_gaming)
+
+    # usersubs = Subs.query.filter_by(user_id=1).all()
+    # nr_gaming =0
+    # category =[]
+    # for subs in usersubs:
+    #     category.append(subs.category)
+    #     nr_gaming=category.count("Gaming")
+    # print(category)
+    # print(nr_gaming)
 
     # subs=ListOfSubs.query.all()
     # for i in subs:

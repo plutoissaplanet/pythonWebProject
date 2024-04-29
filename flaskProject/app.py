@@ -153,35 +153,71 @@ def main_page():
     return render_template('main.html')
 
 
-@app.route('/stats_page')
+@app.route('/stats_page', methods=["GET", "POST"])
 def stats_page():
-    usersubs = Subs.query.filter_by(user_id=current_user.id, valuta="HUF").all()
-    counted_categories = count_subs(usersubs)
-    graph_bars = BarChart(x=["Gaming", "Newspaper", "Streaming", "Music"],
-                          y=counted_categories, label="")
-    graph_pie = PieChart(y=[counted_categories],
-                         label=["Gaming", "Newspaper", "Streaming", "Music"], x=0)
-    return render_template('statistics.html', usersubs=usersubs, plot_url=graph_bars.plot_graphs(),
-                           plot_url2=graph_pie.plot_graphs())
+    all_subs = Subs.query.filter_by(user_id=current_user.id, valuta="HUF").all()
+
+    filtered_subs = []
+    cat_label = []
+    price_label = []
+    method_label = []
+
+    if request.method == "POST":
+        used_filters = request.form.getlist('filters')
+        for i in range(len(used_filters)):
+            if "_cat" in used_filters[i]:
+                cat_label.append(used_filters[i].replace("_cat", "").capitalize())
+                used_filters[i] = used_filters[i].replace("_cat", "").capitalize()
+            elif "_price" in used_filters[i]:
+                price_label.append(used_filters[i].replace("_price", ""))
+                used_filters[i] = used_filters[i].replace("_price", "").capitalize()
+            elif "_method" in used_filters[i]:
+                method_label.append(used_filters[i].replace("_method", ""))
+                used_filters[i] = used_filters[i].replace("_method", "").capitalize()
+
+    else:
+
+        used_filters = []
+
+    if cat_label:
+        for cat in cat_label:
+            filtered_subs.extend(Subs.query.filter_by(user_id=current_user.id, valuta="HUF", category=cat).all())
+
+    counted_categories = count_subs(subslist=filtered_subs, cats=cat_label)
+    graph_bars = BarChart(x=cat_label, y=counted_categories, label="")
+    # graph_pie = PieChart(y=[counted_categories],
+    #                      label=["Gaming", "Newspaper", "Streaming", "Music"], x=0)
+
+    return render_template('statistics.html', all_subs=all_subs, used_filters=used_filters, cat_label=cat_label,
+                           filtered_subs=filtered_subs, plot_url=graph_bars.plot_graphs(),
+                           counted_categories=counted_categories)
 
 
-def count_subs(subslist):
+def count_subs(subslist, cats):
     nr_gaming = 0
     nr_newspaper = 0
     nr_streaming = 0
     nr_music = 0
-    category = []
     counted_categories = []
+    category_list = []
+
     for subs in subslist:
-        category.append(subs.category)
-        nr_gaming = category.count("Gaming")
-        nr_newspaper = category.count("Newspaper")
-        nr_streaming = category.count("Streaming")
-        nr_music = category.count("Music")
-    counted_categories.append(nr_gaming)
-    counted_categories.append(nr_newspaper)
-    counted_categories.append(nr_streaming)
-    counted_categories.append(nr_music)
+        category_list.append(subs.category)
+        nr_gaming = category_list.count("Gaming")
+        nr_newspaper = category_list.count("Newspaper")
+        nr_streaming = category_list.count("Streaming")
+        nr_music = category_list.count("Music")
+
+    for i in range(len(cats)):
+        if cats[i] == "Gaming":
+            counted_categories.append(nr_gaming)
+        if cats[i] == "Newspaper":
+            counted_categories.append(nr_newspaper)
+        if cats[i] == "Streaming":
+            counted_categories.append(nr_streaming)
+        if cats[i] == "Music":
+            counted_categories.append(nr_music)
+
     return counted_categories
 
 

@@ -10,29 +10,35 @@
             <h1>Filters</h1>
             <div class="filters_sub">
                 <br>
-                <form>
+                <form method="POST" action="/stats_page">
                     <h2>Filter by Category:</h2><br>
-                <label><input type="checkbox" name="streaming" value="streaming" style="width:20px; height:20px">
+                <label><input {% if 'Streaming' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="streaming_cat" style="width:20px; height:20px">
                     Streaming</label><br>
-                <label><input type="checkbox" name="gaming" value="gaming" style="width:20px; height:20px">
+
+                <label><input  {% if 'Gaming' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="gaming_cat" style="width:20px; height:20px">
                     Gaming</label><br>
-                <label><input type="checkbox" name="music" value="music" style="width:20px; height:20px">
+
+                <label><input {% if 'Music' in used_filters %} checked {% endif %}  type="checkbox" name="filters" value="music_cat" style="width:20px; height:20px">
                     Music</label><br>
-                <label><input type="checkbox" name="newspaper" value="newspaper" style="width:20px; height:20px">
+
+                <label><input {% if 'Newspaper' in used_filters %} checked {% endif %}
+                        type="checkbox" name="filters" value="newspaper_cat" style="width:20px; height:20px">
                     Newspaper</label><br>
 
+
+
                 <h2>Filter by price:</h2>
-                <label><input type="checkbox" name="highest_to_lowest" value="highest_to_lowest" style="width:20px; height:20px">
+                <label><input {% if 'highest_to_lowest' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="highest to lowest_price" style="width:20px; height:20px">
                     Highest to lowest</label><br>
-                <label><input type="checkbox" name="lowest_to_higest" value="lowest_to_highest" style="width:20px; height:20px">
+                <label><input {% if 'lowest_to_highest' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="lowest to highest_price" style="width:20px; height:20px">
                     Lowest to Highest</label><br>
 
                 <h2> Filter by pay method:</h2>
-                <label><input type="checkbox" name="monthly" value="monthly" style="width:20px; height:20px">
+                <label><input {% if 'monthly' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="monthly_method" style="width:20px; height:20px">
                     Monthly</label><br>
-                <label><input type="checkbox" name="yearly" value="yearly" style="width:20px; height:20px">
+                <label><input {% if 'yearly' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="yearly_method" style="width:20px; height:20px">
                     Yearly</label><br>
-                <label><input type="checkbox" name="one_time" value="one_time" style="width:20px; height:20px">
+                <label><input {% if 'one_time' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="one_time_method" style="width:20px; height:20px">
                     One time pay</label><br>
                     <button type="submit">Filter</button>
                 </form>
@@ -48,9 +54,12 @@
                     <a href="/mainPage"><img id="backbttn" alt="Input" border="0"
                                              src="../static/Photos/UI/back-arrow.png"></a>
                 </div><br>
-
-                <img src="data:image/png;base64,{{ plot_url }}" alt="Plot"><br><br>
-                <img src="data:image/png;base64,{{ plot_url2 }}" alt="Plot"><br><br>
+                    <p> {{ used_filters }}</p><br>
+                    <p>  {{ cat_label }}</p>
+                    <p> Filtered subs: {{ filtered_subs }}</p>
+                    <p>Counted categories: {{ counted_categories }}</p>
+                    <img src="data:image/png;base64,{{ plot_url }}" alt="Plot"><br><br>
+{#                <img src="data:image/png;base64,{{ plot_url2 }}" alt="Plot"><br><br>#}
 
 
             </div>
@@ -63,7 +72,7 @@
                 <h2>Your subscriptions</h2>
             </div>
             <div class="content">
-                {% for subs in usersubs %}
+                {% for subs in all_subs %}
                     <h4> {{ subs.name }} - {{ subs.price }} {{ subs.valuta }}</h4>
 
                 {% endfor %}
