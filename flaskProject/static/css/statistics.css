@@ -1,0 +1,103 @@
+body {
+    background-color: #363636;
+}
+
+.main{
+    display: flex;
+}
+
+.filters, .subscriptions{
+    width: 20vw;
+    height: 98vh;
+    background-color: #282828;
+    border-radius: 12px;
+}
+
+.statistics{
+    width: 60vw;
+    height: 98vh;
+}
+
+.header{
+    display:flex;
+    width: 60vw;
+}
+
+.backbutton, .backbutton img{
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+}
+
+.header_h1{
+    margin-left: 20vw;
+}
+
+h1{
+    margin-top: 0;
+}
+
+h2{
+    text-align: center;
+}
+h4{
+    margin-top: 0;
+    margin-left: 10px;
+    font-size: 30px;
+}
+
+.content{
+    margin-top:85px;
+    width: 20vw;
+    height:89vh;
+    overflow-y: auto;
+}
+
+.subs_h2{
+    width: 19vw;
+    height: 20px;
+    border-radius: 12px;
+    background-color: #282828;
+    position: fixed;
+    z-index: 2;
+}
+
+label{
+    color: white;
+    font-size: 35px;
+}
+.filters{
+     overflow-y: auto;
+}
+.filters h2{
+    margin-top: 0;
+    margin-left: 10px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+
+.filters h1{
+    margin-bottom: 0;
+    text-align: center;
+    font-size: 70px;
+    margin-top:20px
+}
+
+.filters input{
+    margin-left: 20%;
+}
+
+
+button{
+    width: 15vw;
+    height: 6vh;
+    background-color: #00564D;
+    font-size: 5vh;
+    margin-top: 30px;
+    border-radius: 12px;
+    text-align: center;
+    margin-left: 4vh;
+    color: white;
+}
+

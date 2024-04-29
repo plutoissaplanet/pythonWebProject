@@ -82,7 +82,7 @@ button {
     display: flex;
 }
 
-.header{
+.header {
     position: fixed;
     width: 198px;
     background-color: #363636;
@@ -90,9 +90,10 @@ button {
     z-index: 2;
 }
 
-.content{
+.content {
     z-index: 1;
     position: relative;
     overflow-y: auto;
     margin-top: 40px;
 }
+

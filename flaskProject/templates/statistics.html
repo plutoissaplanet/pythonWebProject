@@ -1,10 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Statistics</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/statistics.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div class="filters">
+            <h1>Filters</h1>
+            <div class="filters_sub">
+                <br>
+                <form>
+                    <h2>Filter by Category:</h2><br>
+                <label><input type="checkbox" name="streaming" value="streaming" style="width:20px; height:20px">
+                    Streaming</label><br>
+                <label><input type="checkbox" name="gaming" value="gaming" style="width:20px; height:20px">
+                    Gaming</label><br>
+                <label><input type="checkbox" name="music" value="music" style="width:20px; height:20px">
+                    Music</label><br>
+                <label><input type="checkbox" name="newspaper" value="newspaper" style="width:20px; height:20px">
+                    Newspaper</label><br>
+
+                <h2>Filter by price:</h2>
+                <label><input type="checkbox" name="highest_to_lowest" value="highest_to_lowest" style="width:20px; height:20px">
+                    Highest to lowest</label><br>
+                <label><input type="checkbox" name="lowest_to_higest" value="lowest_to_highest" style="width:20px; height:20px">
+                    Lowest to Highest</label><br>
+
+                <h2> Filter by pay method:</h2>
+                <label><input type="checkbox" name="monthly" value="monthly" style="width:20px; height:20px">
+                    Monthly</label><br>
+                <label><input type="checkbox" name="yearly" value="yearly" style="width:20px; height:20px">
+                    Yearly</label><br>
+                <label><input type="checkbox" name="one_time" value="one_time" style="width:20px; height:20px">
+                    One time pay</label><br>
+                    <button type="submit">Filter</button>
+                </form>
+
+
+            </div>
+        </div>
+
+
+        <div class="statistics">
+            <div class="header">
+                <div class="backbutton">
+                    <a href="/mainPage"><img id="backbttn" alt="Input" border="0"
+                                             src="../static/Photos/UI/back-arrow.png"></a>
+                </div><br>
+
+                <img src="data:image/png;base64,{{ plot_url }}" alt="Plot"><br><br>
+                <img src="data:image/png;base64,{{ plot_url2 }}" alt="Plot"><br><br>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="subscriptions">
+            <div class="subs_h2">
+                <h2>Your subscriptions</h2>
+            </div>
+            <div class="content">
+                {% for subs in usersubs %}
+                    <h4> {{ subs.name }} - {{ subs.price }} {{ subs.valuta }}</h4>
+
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
