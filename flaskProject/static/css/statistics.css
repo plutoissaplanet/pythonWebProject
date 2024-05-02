@@ -1,59 +1,77 @@
 body {
     background-color: #363636;
+    display: flex;
+    overflow-x: hidden;
+
 }
 
-.main{
+.main {
     display: flex;
 }
 
-.filters, .subscriptions{
-    width: 20vw;
+.filters, .subscriptions {
+    width: 21vw;
     height: 98vh;
     background-color: #282828;
     border-radius: 12px;
 }
 
-.statistics{
-    width: 60vw;
+.subscriptions {
+    margin-right: 1vw;
+}
+
+.statistics {
+    width: 59vw;
     height: 98vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: block;
+    text-align: center;
+
 }
 
-.header{
-    display:flex;
+.help{
+    display: block;
+
+}
+
+.header {
+    display: flex;
     width: 60vw;
 }
 
-.backbutton, .backbutton img{
+.backbutton, .backbutton img {
     width: 50px;
     height: 50px;
     margin-left: 20px;
 }
 
-.header_h1{
+.header_h1 {
     margin-left: 20vw;
 }
 
-h1{
+h1 {
     margin-top: 0;
 }
 
-h2{
+h2 {
     text-align: center;
 }
-h4{
+
+h4 {
     margin-top: 0;
     margin-left: 10px;
     font-size: 30px;
 }
 
-.content{
-    margin-top:85px;
-    width: 20vw;
-    height:89vh;
+.content {
+    margin-top: 85px;
+    width: 19vw;
+    height: 89vh;
     overflow-y: auto;
 }
 
-.subs_h2{
+.subs_h2 {
     width: 19vw;
     height: 20px;
     border-radius: 12px;
@@ -62,14 +80,16 @@ h4{
     z-index: 2;
 }
 
-label{
+label {
     color: white;
     font-size: 35px;
 }
-.filters{
-     overflow-y: auto;
+
+.filters {
+    overflow-y: auto;
 }
-.filters h2{
+
+.filters h2 {
     margin-top: 0;
     margin-left: 10px;
     margin-bottom: 0;
@@ -77,19 +97,19 @@ label{
 }
 
 
-.filters h1{
+.filters h1 {
     margin-bottom: 0;
     text-align: center;
     font-size: 70px;
-    margin-top:20px
+    margin-top: 20px
 }
 
-.filters input{
+.filters input {
     margin-left: 20%;
 }
 
 
-button{
+button {
     width: 15vw;
     height: 6vh;
     background-color: #00564D;
@@ -100,4 +120,39 @@ button{
     margin-left: 4vh;
     color: white;
 }
+
+.img_cat_statistics {
+    display: flex;
+}
+
+.img_cat_statistics img{
+    width: 35vw;
+    height: 45vh;
+}
+
+.statistics_headers {
+    margin-top: 3vh;
+
+}
+
+.arranged_table {
+    display: flex;
+}
+
+.arranged_table h2 {
+    text-align: center;
+}
+
+.htl {
+    margin-left: 2vh;
+}
+
+.lth {
+    margin-left: 2vh;
+}
+
+.pay_method_filter{
+    display: flex;
+}
+
 

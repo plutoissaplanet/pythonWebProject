@@ -12,25 +12,22 @@
                 <br>
                 <form method="POST" action="/stats_page">
                     <h2>Filter by Category:</h2><br>
-                <label><input {% if 'Streaming' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="streaming_cat" style="width:20px; height:20px">
+                <label><input {% if 'streaming_cat' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="streaming_cat" style="width:20px; height:20px">
                     Streaming</label><br>
 
-                <label><input  {% if 'Gaming' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="gaming_cat" style="width:20px; height:20px">
+                <label><input  {% if 'gaming_cat' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="gaming_cat" style="width:20px; height:20px">
                     Gaming</label><br>
 
-                <label><input {% if 'Music' in used_filters %} checked {% endif %}  type="checkbox" name="filters" value="music_cat" style="width:20px; height:20px">
+                <label><input {% if 'music_cat' in used_filters %} checked {% endif %}  type="checkbox" name="filters" value="music_cat" style="width:20px; height:20px">
                     Music</label><br>
 
-                <label><input {% if 'Newspaper' in used_filters %} checked {% endif %}
+                <label><input {% if 'newspaper_cat' in used_filters %} checked {% endif %}
                         type="checkbox" name="filters" value="newspaper_cat" style="width:20px; height:20px">
                     Newspaper</label><br>
-
-
-
                 <h2>Filter by price:</h2>
-                <label><input {% if 'highest_to_lowest' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="highest to lowest_price" style="width:20px; height:20px">
+                <label><input {% if 'highest to lowest_price' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="highest to lowest_price" style="width:20px; height:20px">
                     Highest to lowest</label><br>
-                <label><input {% if 'lowest_to_highest' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="lowest to highest_price" style="width:20px; height:20px">
+                <label><input {% if 'lowest to highest_price' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="lowest to highest_price" style="width:20px; height:20px">
                     Lowest to Highest</label><br>
 
                 <h2> Filter by pay method:</h2>
@@ -42,28 +39,50 @@
                     One time pay</label><br>
                     <button type="submit">Filter</button>
                 </form>
-
-
             </div>
         </div>
 
-
         <div class="statistics">
             <div class="header">
-                <div class="backbutton">
-                    <a href="/mainPage"><img id="backbttn" alt="Input" border="0"
-                                             src="../static/Photos/UI/back-arrow.png"></a>
-                </div><br>
-                    <p> {{ used_filters }}</p><br>
-                    <p>  {{ cat_label }}</p>
-                    <p> Filtered subs: {{ filtered_subs }}</p>
-                    <p>Counted categories: {{ counted_categories }}</p>
-                    <img src="data:image/png;base64,{{ plot_url }}" alt="Plot"><br><br>
-{#                <img src="data:image/png;base64,{{ plot_url2 }}" alt="Plot"><br><br>#}
-
-
+                    <div class="backbutton">
+                        <a href="/mainPage"><img id="backbttn" alt="Input" border="0" src="../static/Photos/UI/back-arrow.png"></a>
+                    </div><br>
+                </div>
+            <div class="help">
+                  {% if cats%}
+                      <h2 class="statistics_headers">Filtered by categories: </h2><br>
+                      <div class="img_cat_statistics">
+                        <img src="data:image/png;base64,{{ plot_url }}" alt="Plot"><br><br>
+                  {% endif %}
+                {% if cats  %}
+                        <img src="data:image/png;base64,{{ plot_url2 }}" alt="Plot"><br><br>
+                {% endif %}
+                        </div>
+                <div class="arranged_table">
+                    <div class="lth">
+                        {% if lth  %}
+                            <h2>Lowest price to highest:</h2><br>
+                            {% for subs in  lth %}
+                                <h4>{{ subs.name }} - {{ subs.price }} - {{ subs.category }}</h4>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="htl">
+                         {% if htl  %}
+                            <h2>Highest price to lowest:</h2><br>
+                            {% for subs in  htl %}
+                                <h4>{{ subs.name }} - {{ subs.price }} - {{ subs.category }}</h4>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
 
+            <div class="pay_method_filter">
+                {% if method_label %}
+                    <h2>Filter by payment method:</h2>
+                {% endif %}
+            </div>
         </div>
 
 
@@ -73,12 +92,11 @@
             </div>
             <div class="content">
                 {% for subs in all_subs %}
-                    <h4> {{ subs.name }} - {{ subs.price }} {{ subs.valuta }}</h4>
-
+                        <h4 {% for cat in cats %}{% if subs.category == cat %}style="color:#A558A1 "{% endif %}{% endfor %}> {{ subs.name }} - {{ subs.price }} {{ subs.valuta }}</h4>
                 {% endfor %}
             </div>
-
         </div>
+
     </div>
 
 {% endblock %}

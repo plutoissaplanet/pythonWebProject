@@ -16,7 +16,7 @@ def check_if_exists(data):
 
 with app.app_context():
 
-    # usersubs = Subs.query.filter_by(user_id=1).all()
+    usersubs = Subs.query.filter_by(user_id=1).all()
     # nr_gaming =0
     # category =[]
     # for subs in usersubs:
@@ -28,6 +28,11 @@ with app.app_context():
     # subs=ListOfSubs.query.all()
     # for i in subs:
     #     print(i.name)
+
+    lth=sorted(usersubs, key=lambda i:i.price)
+    for i in lth:
+        print(i.name, " ", i.price)
+
 
 
     if not check_if_exists(netflix):
