@@ -1,9 +1,15 @@
 import random
 import base64
 from io import BytesIO
+import io
 from matplotlib.figure import Figure
 import numpy as np
 from flask_sqlalchemy import SQLAlchemy
+import calplot
+import pandas as pd
+import matplotlib
+
+matplotlib.use('TkAgg')
 
 db = SQLAlchemy()
 
@@ -32,7 +38,7 @@ class Subs(db.Model):
     name = db.Column(db.String(30), nullable=False)
     category = db.Column(db.String, nullable=False)
     price = db.Column(db.Float, nullable=False)
-    valuta = db.Column(db.String, nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
     type_of_sub = db.Column(db.String(30), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -128,3 +134,46 @@ class PieChart(Graphs):
         fig.savefig(buf, format="png", transparent=True)
         data = base64.b64encode(buf.getvalue()).decode("ascii")
         return data
+
+    """
+    Ez a lenti HeatMap rész össze lett ollózva különböző oldalakról. Saját módosításokat kellett még
+    végeznem rajta, de javarészt netről van.
+
+    Heatmap generálása. A query_data function összeszámolja a napi költéseket és a spent_on_days dict-be rakja,
+    ahol a key a dátum. A total_spending a színezéshez szükséges.
+    
+    A plot() pedig magát a figuret plotolja.
+    """
+
+class HeatMap:
+
+    def __init__(self, earliest_date, year, data):
+        self.earliest_date = earliest_date
+        self.spent_on_days = {}
+        self._year = year
+        self._data = data
+
+    def query_data(self):
+        for dat in self._data:
+            date = dat.start_date.date()
+            if date in self.spent_on_days:
+                self.spent_on_days[date] += dat.price
+            else:
+                self.spent_on_days[date] = dat.price
+
+        dates = sorted(self.spent_on_days.keys())
+        total_spending = [self.spent_on_days[date] for date in dates]
+        final_data = np.array(total_spending)
+        final_final_data = pd.Series(final_data, index=dates)
+        return final_final_data
+
+    def plot(self):
+        datas = self.query_data()
+        datas.index = pd.to_datetime(datas.index)
+        fig, ax = calplot.calplot(data=datas, cmap='inferno', colorbar=True)
+        buffer = io.BytesIO()
+        fig.savefig(buffer, format='png', transparent=True)
+        buffer.seek(0)
+        heatmap = base64.b64encode(buffer.getvalue()).decode()
+
+        return heatmap

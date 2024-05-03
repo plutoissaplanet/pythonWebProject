@@ -22,30 +22,27 @@
                     <label>Name: </label> <br>
                     <input type="text" list="subslist" id="subname" name="subname"><br>
 
-                    <label> Price:</label> <br>
-                    <input type="text" id="price" name="price">
-                    <select id="valuta" name="valuta">
-                        <option name="HUF" id="huf"> HUF</option>
-                        <option name="EUR" id="eur"> EUR</option>
-                        <option name="USD" id="usd"> USD</option>
-                    </select> <br>
+                    <label> Price (HUF):</label> <br>
+                    <input type="text" id="price" name="price"><br>
+
 
                     <div class="smallerdiv">
-                        <label>Subscription type:</label> <br>
+                        <label for="subtype">Subscription type:</label> <br>
                         <select id="subtype" name="subtype">
                             <option name="Monthly" id="monthly">Monthly</option>
                             <option name="Yearly" id="yearly">Yearly</option>
                             <option name="One time pay" id="onetime">One time pay</option>
                         </select><br>
 
-                        <label>Subscription Category: </label><br>
+                        <label for="subcategory">Subscription Category: </label><br>
                         <select id="subcategory" name="subcategory">
                             <option id="music">Music</option>
                             <option id="gaming"> Gaming</option>
                             <option id="streaming"> Streaming</option>
                             <option id="Newspaper">Newspaper</option>
-                        </select>
-
+                        </select> <br>
+                        <label for="sub_start">Subscription payed on:</label>
+                        <input type="date" id="sub_start" name="sub_start">
                     </div>
                     <br>
 
@@ -73,8 +70,7 @@
                 </div>
                 <div class="content">
                     {% for subs in usersubs %}
-                        <h4> {{ subs.name }} - {{ subs.price }} {{ subs.valuta }}</h4>
-
+                        <h4> {{ subs.name }} - {{ subs.price }}</h4>
                     {% endfor %}
                 </div>
 

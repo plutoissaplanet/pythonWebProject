@@ -12,8 +12,8 @@ Lightest gray = #969696
 
 .main_div{
     position: absolute;
-    top: 40%;
-    left: 50%;
+    top: 40vh;
+    left: 50vw;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     size:1000px 1000px
@@ -21,23 +21,25 @@ Lightest gray = #969696
 
 h1{
     font-family: "Bebas Neue", sans-serif;
-    font-size: 100px;
+    font-size: 15vh;
     color:#00897B;
 }
 
 h2{
     font-family: "Bebas Neue", sans-serif;
-    font-size: 40px;
+    font-size: 10vh;
     font-weight: lighter;
     color:#00897B;
 }
 
 h3{
+    font-size: 4vh;
     font-family: "Bebas Neue", sans-serif;
     color:#00897B;
 }
 
 h4{
+    font-size: 2vh;
     font-family: "Bebas Neue", sans-serif;
     color: white;
 }
@@ -47,6 +49,7 @@ button{
 }
 
 label {
+    font-size: 4vh;
     font-family: "Bebas Neue", sans-serif;
 }
 

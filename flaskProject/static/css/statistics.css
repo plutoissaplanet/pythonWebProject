@@ -55,13 +55,14 @@ h1 {
 }
 
 h2 {
+    font-size: 5vh;
     text-align: center;
 }
 
 h4 {
     margin-top: 0;
     margin-left: 10px;
-    font-size: 30px;
+    font-size: 3vh;
 }
 
 .content {
@@ -82,7 +83,7 @@ h4 {
 
 label {
     color: white;
-    font-size: 35px;
+    font-size: 3vh;
 }
 
 .filters {
@@ -152,7 +153,21 @@ button {
 }
 
 .pay_method_filter{
-    display: flex;
+    display: block;
 }
+
+.iranoutofnames{
+    display: flex;
+    margin-left: 3vw;
+}
+
+.monthly, .yearly, .onetime{
+    margin-right: 2vw;
+    margin-left: 2vw;
+}
+
+
+
+
 
 

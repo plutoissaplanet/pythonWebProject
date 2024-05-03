@@ -1,10 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block head%}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block body%}
+    <div class="backbutton">
+                <a href="/mainPage">
+                    <img id="backbttn" alt="Input" border="0" src="../static/Photos/UI/back-arrow.png">
+                </a>
+    </div>
+    <div class="main_div">
+        <h1>Profile</h1>
+        <h3> Total subscriptions: {{ nr_of_subs }}</h3>
+        <div class="allinall">
+            <div class="profile_info">
+                <div class="info1">
+                    <div class="col1">
+                        <h4>Total game subscriptions:</h4>
+                        <h4>Total streaming subscriptions:</h4>
+                        <h4>Total music subscriptions:</h4>
+                        <h4>Total newspaper subscriptions:</h4>
+                        <h4>Total one time subscriptions:</h4>
+                        <h4>Total monthly subscriptions:</h4>
+                        <h4>Total yearly subscriptions:</h4>
+                    </div>
+                    <div class="col2">
+                        {% for numbers in all_numbers %}
+                            <h4 style="color: white">{{ numbers }}</h4>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="info2">
+                    <div class="col3">
+                        <h4>Highest subscription price:</h4>
+                        <h4>Lowest subscription price: </h4>
+                        <h4>Earliest subscription:</h4>
+                        <h4>Latest subscription: </h4><br><br>
+                        <h4 style="color: #A558A1">Total price: </h4>
+                    </div>
+
+                    <div class="col4">
+                        <h4 style="color :white">{{ max_price }} HUF </h4>
+                        <h4 style="color :white">{{ min_price }} HUF</h4>
+                        <h4 style="color :white">{{ latest }} </h4>
+                        <h4 style="color :white">{{ earliest }} </h4><br><br>
+                        <h4 style="color :#A558A1">{{ total }} HUF </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="delete">
+                <form method="POST">
+                <div class="list">
+                    {% for subs in all_subs %}
+                        <label>
+                            <input type="checkbox" name="delete" value="{{ subs.id }}">
+                            {{ subs.name }} - {{ subs.price }} HUF - {{ subs.category }} - {{ subs.type_of_sub }} - {{ subs.start_date }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+                    <div class="button">
+                        <button type="submit"> Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

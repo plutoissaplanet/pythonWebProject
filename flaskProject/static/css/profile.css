@@ -1,0 +1,105 @@
+body{
+    background-color: #363636;
+    overflow-x: hidden;
+}
+
+.backbutton{
+    width: 2.5vw;
+    height: 5vh;
+}
+#backbttn{
+    width: 2.5vw;
+    height: 5vh;
+}
+
+h1{
+
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.profile_info{
+    background-color: #282828;
+    width: 50vw;
+    height: 28vw;
+    border-radius: 12px;
+    display: flex;
+}
+
+h3{
+    text-align: center;
+    color: #A558A1;
+}
+
+h4{
+    font-size: 3vh;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.info1{
+    width:25vw;
+    display: flex;
+}
+.col2{
+    margin-left: 30px;
+}
+
+h4{
+    color: #00897B;
+}
+
+.info2{
+    display: flex;
+    width:30vw;
+}
+
+.allinall{
+    display: flex;
+}
+
+.delete{
+
+    background-color: #282828;
+    border-radius: 12px ;
+    width: 44vw;
+    height: 28vw;
+    margin-left: 2vw;
+    display: block;
+}
+
+input{
+    width:1.2vw;
+    height:1.2vw;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+label{
+    color: white;
+    margin-bottom: 10px;
+    font-size: 1.6vw;
+}
+
+.button{
+    text-align: center;
+}
+
+button{
+    text-align: center;
+    margin-top: 2vh;
+    margin-left: 0.5vw;
+    background-color: #00564D;
+    color: white;
+    border-radius: 12px;
+    font-size: 2vw;
+    width: 40vw;
+    height: 5vh;
+}
+
+.list{
+    margin-top: 10px;
+    overflow-y: auto;
+    width: 44vw;
+    height: 44vh;
+}

@@ -1,8 +1,10 @@
+from datetime import datetime
+
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 
-from models import User, Subs, ListOfSubs, db, BarChart, PieChart
+from models import User, Subs, ListOfSubs, db, BarChart, PieChart, HeatMap
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mindenszipiszuper.db'
@@ -46,7 +48,7 @@ def stats_page():
             elif "_price" in used_filters[i]:
                 price_label.append(used_filters[i].replace("_price", ""))
             elif "_method" in used_filters[i]:
-                method_label.append(used_filters[i].replace("_method", ""))
+                method_label.append(used_filters[i].replace("_method", "").capitalize())
 
             if "highest to lowest_price" in used_filters[i]:
                 htl = lowest_highest(all_subs, False)
@@ -59,21 +61,26 @@ def stats_page():
 
     if cat_label:
         for cat in cat_label:
-            filtered_subs.extend(Subs.query.filter_by(user_id=current_user.id, valuta="HUF", category=cat).all())
+            filtered_subs.extend(Subs.query.filter_by(user_id=current_user.id, category=cat).all())
 
     counted_categories = count_subs(subslist=filtered_subs, cats=cat_label)
     graph_bars = BarChart(x=cat_label, y=counted_categories, label="")
     graph_pie = PieChart(y=counted_categories, label=cat_label, x=0)
 
     plot_url = None
-    plot_url2=None
+    plot_url2 = None
 
     if used_filters:
         plot_url = graph_bars.plot_graphs()
-        plot_url2=graph_pie.plot_graphs()
+        plot_url2 = graph_pie.plot_graphs()
+
+    start_dates = [sub.start_date for sub in all_subs]
+    earliest_start_date = min(start_dates)
+    heatmap = HeatMap(earliest_start_date, datetime.now().year, all_subs)
 
     return render_template('statistics.html', all_subs=all_subs, plot_url=plot_url,
-                           plot_url2=plot_url2, used_filters=used_filters, cats=cat_label, lth=lth, htl=htl, method_label=method_label)
+                           plot_url2=plot_url2, used_filters=used_filters, cats=cat_label, lth=lth, htl=htl,
+                           method_label=method_label, heatmap=heatmap.plot())
 
 
 def count_subs(subslist, cats):
@@ -126,9 +133,66 @@ def registration_page():
     return render_template('registration_page.html')
 
 
-@app.route('/profile_page')
+@app.route('/profile_page', methods=['GET', 'POST'])
 def profile_page():
-    return render_template('profile.html')
+    if request.method == "POST":
+        checked_ids = (request.form.getlist("delete"))
+        for ids in checked_ids:
+            obj = Subs.query.filter_by(id=ids).first()
+            if obj:
+                db.session.delete(obj)
+                db.session.commit()
+                return redirect(url_for("profile_page"))
+
+    all_subs=Subs.query.filter_by(user_id=current_user.id).all()
+    nr_of_gaming=0
+    nr_of_streaming=0
+    nr_of_newspaper=0
+    nr_of_music=0
+    nr_monthly=0
+    nr_yearly=0
+    nr_onetime=0
+    all_numbers=[]
+
+    for subs in all_subs:
+        if subs.category == "Gaming":
+            nr_of_gaming+=1
+        elif subs.category == "Streaming":
+            nr_of_streaming += 1
+        elif subs.category == "Music":
+            nr_of_music += 1
+
+        if subs.category == "Newspaper":
+            nr_of_newspaper += 1
+        elif subs.type_of_sub == "One time pay":
+            nr_onetime+=1
+        elif subs.type_of_sub =="Yearly":
+            nr_yearly+=1
+        elif subs.type_of_sub == "Monthly":
+            nr_monthly+=1
+
+
+    all_numbers.append(nr_of_gaming)
+    all_numbers.append(nr_of_streaming)
+    all_numbers.append(nr_of_music)
+    all_numbers.append(nr_of_newspaper)
+    all_numbers.append(nr_onetime)
+    all_numbers.append(nr_monthly)
+    all_numbers.append(nr_yearly)
+    nr_of_subs=len(all_subs)
+
+    price=[subs.price for subs in all_subs]
+    dates=[subs.start_date for subs in all_subs]
+    max_price=max(price)
+    min_price=min(price)
+    total=sum(price)
+    earliest=min(dates)
+    latest=max(dates)
+
+
+
+    return render_template('profile.html', nr_of_subs=nr_of_subs, all_numbers=all_numbers, max_price=max_price, min_price=min_price,
+                           latest=latest, earliest=earliest, total=total, all_subs=all_subs)
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -202,8 +266,7 @@ def add_new_subscription():
             except ValueError:
                 flash("Please enter a valid price")
                 return render_template("input.html")
-
-        sub_valuta = request.form.get('valuta')
+        sub_date = request.form.get("sub_start")
         sub_type = request.form.get('subtype')
 
         existingsub = ListOfSubs.query.filter_by(name=sub_name).one_or_none()
@@ -219,8 +282,8 @@ def add_new_subscription():
             name=sub_name,
             category=sub_cat,
             price=sub_price,
-            valuta=sub_valuta,
             type_of_sub=sub_type,
+            start_date=datetime.strptime(sub_date, '%Y-%m-%d'),
             user_id=current_user.id
         )
         add(new_sub)
@@ -243,6 +306,7 @@ def add(subscription):
         print(e)
         db.session.rollback()
     return False
+
 
 
 if __name__ == '__main__':
