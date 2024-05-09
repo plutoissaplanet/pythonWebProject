@@ -53,17 +53,21 @@
             <div class="delete">
                 <form method="POST">
                 <div class="list">
-                    {% for subs in all_subs %}
-                        <label>
-                            <input type="checkbox" name="delete" value="{{ subs.id }}">
-                            {{ subs.name }} - {{ subs.price }} HUF - {{ subs.category }} - {{ subs.type_of_sub }} - {{ subs.start_date }}
-                        </label><br>
-                    {% endfor %}
-                </div>
-                    <div class="button">
-                        <button type="submit"> Delete</button>
+                    {% if not isNone %}
+                        {% for subs in all_subs %}
+                            <label>
+                                <input type="checkbox" name="delete" value="{{ subs.id }}">
+                                {{ subs.name }} - {{ subs.price }} HUF - {{ subs.category }} - {{ subs.type_of_sub }} - {{ subs.start_date }}
+                            </label><br>
+                        {% endfor %}
                     </div>
-                </form>
+                        <div class="button">
+                            <button type="submit"> Delete</button>
+                        </div>
+                    </form>
+                    {% else %}
+                        <h2>You have no subscriptions!</h2>
+                    {% endif %}
             </div>
         </div>
     </div>

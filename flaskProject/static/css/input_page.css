@@ -59,7 +59,7 @@ button {
 
 .list_of_user_subs {
     background-color: #363636;
-    height: 62vh;
+    height: 65vh;
     width: 20vw;
     text-align: justify;
     margin-left: 50px;
@@ -72,7 +72,7 @@ button {
     background-color: #363636;
     padding-left: 10px;
     padding-right: 10px;
-    height: 62vh;
+    height: 65vh;
     width: 20vw;
     border-radius: 12px;
 }
@@ -95,7 +95,7 @@ button {
     position: relative;
     overflow-y: auto;
     margin-top: 11vh;
-    height: 50vh;
+    height: 52vh;
 }
 
 .content h3{

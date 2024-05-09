@@ -9,9 +9,13 @@ import calplot
 import pandas as pd
 import matplotlib
 
-matplotlib.use('TkAgg')
+matplotlib.use('agg')
 
 db = SQLAlchemy()
+
+"""
+Az alábbi 3 class az adatbázishoz tartozik.
+"""
 
 
 class User(db.Model):
@@ -47,6 +51,11 @@ class ListOfSubs(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     logo_url = db.Column(db.String)
+
+
+"""
+Ezek pedig az adatok megjelenítéséhez szükségesek.
+"""
 
 
 class Graphs:
@@ -126,7 +135,7 @@ class PieChart(Graphs):
         self.y = np.array(self.y).flatten()
         ax = fig.subplots()
         ax.pie(self.y, labels=self.label, colors=self.coloring(self.y),
-               wedgeprops=dict(width=0.3, edgecolor='w'),
+               wedgeprops={"width": 0.3, "edgecolor": 'w'},
                textprops={'color': "w"},
                autopct=lambda pct: f"({int(pct / 100 * sum(self.y))})")
 
@@ -141,9 +150,9 @@ class PieChart(Graphs):
 
     Heatmap generálása. A query_data function összeszámolja a napi költéseket és a spent_on_days dict-be rakja,
     ahol a key a dátum. A total_spending a színezéshez szükséges.
-    
     A plot() pedig magát a figuret plotolja.
     """
+
 
 class HeatMap:
 
@@ -170,7 +179,7 @@ class HeatMap:
     def plot(self):
         datas = self.query_data()
         datas.index = pd.to_datetime(datas.index)
-        fig, ax = calplot.calplot(data=datas, cmap='inferno', colorbar=True)
+        fig, _ = calplot.calplot(data=datas, cmap='inferno', colorbar=True)
         buffer = io.BytesIO()
         fig.savefig(buffer, format='png', transparent=True)
         buffer.seek(0)

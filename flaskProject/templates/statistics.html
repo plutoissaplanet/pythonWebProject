@@ -12,31 +12,52 @@
                 <br>
                 <form method="POST" action="/stats_page">
                     <h2>Filter by Category:</h2><br>
-                <label><input {% if 'streaming_cat' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="streaming_cat" style="width:20px; height:20px">
-                    Streaming</label><br>
+                    <label><input {% if 'streaming_cat' in used_filters %} checked {% endif %} type="checkbox"
+                                                                           name="filters" value="streaming_cat"
+                                                                           style="width:20px; height:20px">
+                        Streaming</label><br>
 
-                <label><input  {% if 'gaming_cat' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="gaming_cat" style="width:20px; height:20px">
-                    Gaming</label><br>
+                    <label><input  {% if 'gaming_cat' in used_filters %} checked {% endif %} type="checkbox"
+                                                                         name="filters" value="gaming_cat"
+                                                                         style="width:20px; height:20px">
+                        Gaming</label><br>
 
-                <label><input {% if 'music_cat' in used_filters %} checked {% endif %}  type="checkbox" name="filters" value="music_cat" style="width:20px; height:20px">
-                    Music</label><br>
+                    <label><input {% if 'music_cat' in used_filters %} checked {% endif %}  type="checkbox"
+                                                                       name="filters" value="music_cat"
+                                                                       style="width:20px; height:20px">
+                        Music</label><br>
 
-                <label><input {% if 'newspaper_cat' in used_filters %} checked {% endif %}
-                        type="checkbox" name="filters" value="newspaper_cat" style="width:20px; height:20px">
-                    Newspaper</label><br>
-                <h2>Filter by price:</h2>
-                <label><input {% if 'highest to lowest_price' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="highest to lowest_price" style="width:20px; height:20px">
-                    Highest to lowest</label><br>
-                <label><input {% if 'lowest to highest_price' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="lowest to highest_price" style="width:20px; height:20px">
-                    Lowest to Highest</label><br>
+                    <label><input {% if 'newspaper_cat' in used_filters %} checked {% endif %}
+                                                                           type="checkbox" name="filters"
+                                                                           value="newspaper_cat"
+                                                                           style="width:20px; height:20px">
+                        Newspaper</label><br>
+                    <h2>Filter by price:</h2>
+                    <label><input {% if 'highest to lowest_price' in used_filters %} checked {% endif %} type="checkbox"
+                                                                                     name="filters"
+                                                                                     value="highest to lowest_price"
+                                                                                     style="width:20px; height:20px">
+                        Highest to lowest</label><br>
+                    <label><input {% if 'lowest to highest_price' in used_filters %} checked {% endif %} type="checkbox"
+                                                                                     name="filters"
+                                                                                     value="lowest to highest_price"
+                                                                                     style="width:20px; height:20px">
+                        Lowest to Highest</label><br>
 
-                <h2> Filter by pay method:</h2>
-                <label><input {% if 'Monthly_method' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="Monthly_method" style="width:20px; height:20px">
-                    Monthly</label><br>
-                <label><input {% if 'Yearly_method' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="Yearly_method" style="width:20px; height:20px">
-                    Yearly</label><br>
-                <label><input {% if 'One time pay_method' in used_filters %} checked {% endif %} type="checkbox" name="filters" value="One time pay_method" style="width:20px; height:20px">
-                    One time pay</label><br>
+                    <h2> Filter by pay method:</h2>
+                    <label><input {% if 'Monthly_method' in used_filters %} checked {% endif %} type="checkbox"
+                                                                            name="filters" value="Monthly_method"
+                                                                            style="width:20px; height:20px">
+                        Monthly</label><br>
+                    <label><input {% if 'Yearly_method' in used_filters %} checked {% endif %} type="checkbox"
+                                                                           name="filters" value="Yearly_method"
+                                                                           style="width:20px; height:20px">
+                        Yearly</label><br>
+                    <label><input {% if 'One time pay_method' in used_filters %} checked {% endif %} type="checkbox"
+                                                                                 name="filters"
+                                                                                 value="One time pay_method"
+                                                                                 style="width:20px; height:20px">
+                        One time pay</label><br>
                     <button type="submit">Filter</button>
                 </form>
             </div>
@@ -44,27 +65,31 @@
 
         <div class="statistics">
             <div class="header">
-                    <div class="backbutton">
-                        <a href="/mainPage"><img id="backbttn" alt="Input" border="0" src="../static/Photos/UI/back-arrow.png"></a>
-                    </div><br>
+                <div class="backbutton">
+                    <a href="/mainPage"><img id="backbttn" alt="Input" border="0"
+                                             src="../static/Photos/UI/back-arrow.png"></a>
                 </div>
+                <br>
+            </div>
             <div class="help">
                 <div class="heatmap">
-                    <img src="data:image/png;base64,{{ heatmap }}" alt="Heatmap">
-
+                    {% if heatmap %}<img src="data:image/png;base64,{{ heatmap }}" alt="Heatmap"> {% endif %}
                 </div>
-                  {% if cats%}
-                      <h2 class="statistics_headers">Filtered by categories: </h2><br>
-                      <div class="img_cat_statistics">
-                        <img src="data:image/png;base64,{{ plot_url }}" alt="Plot"><br><br>
-                  {% endif %}
-                {% if cats  %}
-                        <img src="data:image/png;base64,{{ plot_url2 }}" alt="Plot"><br><br>
+                {% if not isnone %}
+                    {% if cats and not isnone %}
+                        <h2 class="statistics_headers">Filtered by categories: </h2><br>
+                        <div class="img_cat_statistics">
+                        <img src="data:image/png;base64,{{ plot_url }}" alt="Plot1"><br><br>
+                    {% endif %}
+
+                {% if cats %}
+                    <img src="data:image/png;base64,{{ plot_url2 }}" alt="Plot2"><br><br>
                 {% endif %}
-                        </div>
+                </div>
+
                 <div class="arranged_table">
                     <div class="lth">
-                        {% if lth  %}
+                        {% if lth %}
                             <h2>Lowest price to highest:</h2><br>
                             {% for subs in  lth %}
                                 <h4>{{ subs.name }} - {{ subs.price }} - {{ subs.category }}</h4>
@@ -72,7 +97,7 @@
                         {% endif %}
                     </div>
                     <div class="htl">
-                         {% if htl  %}
+                        {% if htl %}
                             <h2>Highest price to lowest:</h2><br>
                             {% for subs in  htl %}
                                 <h4>{{ subs.name }} - {{ subs.price }} - {{ subs.category }}</h4>
@@ -80,42 +105,48 @@
                         {% endif %}
                     </div>
                 </div>
-            <div class="pay_method_filter">
-                {% if method_label %}
-                    <h2>Filtered by payment method:</h2><br>
-                    <div class="iranoutofnames">
-                        <div class="monthly">
-                            {% if "Monthly" in method_label %}
-                                 <h2>Monthly:</h2><br>
-                                {% for subs in all_subs %}
-                                    <h4>{% if subs.type_of_sub=="Monthly"  %} {{ subs.name }} - {{ subs.price }}{% endif %} </h4>
-                                {% endfor %}
-                             {% endif %}
-                        </div >
+                <div class="pay_method_filter">
+                    {% if method_label %}
+                        <h2>Filtered by payment method:</h2><br>
+                        <div class="iranoutofnames">
+                            <div class="monthly">
+                                {% if "Monthly" in method_label %}
+                                    <h2>Monthly:</h2><br>
+                                    {% for subs in all_subs %}
+                                        <h4>{% if subs.type_of_sub=="Monthly" %} {{ subs.name }} -
+                                            {{ subs.price }}{% endif %} </h4>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
 
 
-                        <div class="yearly">
-                            {% if "Yearly" in method_label %}
-                                <h2>Yearly:</h2><br>
-                                {% for subs in all_subs %}
-                                    <h4>{% if subs.type_of_sub=="Yearly"  %} {{ subs.name }} - {{ subs.price }}{% endif %} </h4>
-                                {% endfor %}
-                             {% endif %}
-                        </div >
+                            <div class="yearly">
+                                {% if "Yearly" in method_label %}
+                                    <h2>Yearly:</h2><br>
+                                    {% for subs in all_subs %}
+                                        <h4>{% if subs.type_of_sub=="Yearly" %} {{ subs.name }} -
+                                            {{ subs.price }}{% endif %} </h4>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
 
 
-                        <div class="onetime">
-                            {% if "One time pay" in method_label %}
-                                <h2>One time pay:</h2><br>
-                                {% for subs in all_subs %}
-                                    <h4>{% if subs.type_of_sub=="One time pay"  %} {{ subs.name }} - {{ subs.price }}{% endif %} </h4>
-                                {% endfor %}
-                             {% endif %}
-                        </div >
-                    </div>
+                            <div class="onetime">
+                                {% if "One time pay" in method_label %}
+                                    <h2>One time pay:</h2><br>
+                                    {% for subs in all_subs %}
+                                        <h4>{% if subs.type_of_sub=="One time pay" %} {{ subs.name }} -
+                                            {{ subs.price }}{% endif %} </h4>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
 
+                    {% endif %}
+                </div>
+                {% else %}
+                    <h2> You have no subscriptions</h2>
                 {% endif %}
-            </div>
             </div>
 
 
@@ -128,7 +159,8 @@
             </div>
             <div class="content">
                 {% for subs in all_subs %}
-                        <h4 {% for cat in cats %}{% if subs.category == cat %}style="color:#A558A1 "{% endif %}{% endfor %}> {{ subs.name }} - {{ subs.price }} {{ subs.valuta }}</h4>
+                    <h4 {% for cat in cats %}{% if subs.category == cat %}style="color:#A558A1 "
+                    {% endif %}{% endfor %}> {{ subs.name }} - {{ subs.price }} {{ subs.valuta }}</h4>
                 {% endfor %}
             </div>
         </div>
