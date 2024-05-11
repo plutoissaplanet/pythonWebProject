@@ -3,6 +3,9 @@ Pluto is a subscription manager webapp.
 
 ## Installation
 
+```bash
+pip install pluto-subscriptions==0.1
+```
 
 ## Project structure
 
