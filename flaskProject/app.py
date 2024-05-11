@@ -5,7 +5,7 @@ from models import User, Subs, ListOfSubs, db, BarChart, PieChart, HeatMap
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mindenszipiszuper.db'
-app.config["SECRET_KEY"] = "PEDROPEDROPEDRO"
+app.config["SECRET_KEY"] = "PEDROPEDROPEDRO" #igen tudom tudom ezt így feltolni nem jó practice
 db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
