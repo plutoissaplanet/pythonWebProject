@@ -1,7 +1,0 @@
-README.md
-setup.py
-pluto_subscriptions.egg-info/PKG-INFO
-pluto_subscriptions.egg-info/SOURCES.txt
-pluto_subscriptions.egg-info/dependency_links.txt
-pluto_subscriptions.egg-info/requires.txt
-pluto_subscriptions.egg-info/top_level.txt

@@ -1,0 +1,7 @@
+README.md
+setup.py
+PlutoManager.egg-info/PKG-INFO
+PlutoManager.egg-info/SOURCES.txt
+PlutoManager.egg-info/dependency_links.txt
+PlutoManager.egg-info/requires.txt
+PlutoManager.egg-info/top_level.txt

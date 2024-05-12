@@ -4,8 +4,8 @@ with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 setup(
-    name="pluto_subscriptions",
-    version='0.1',
+    name="PlutoManager",
+    version='0.2',
     packages=find_packages(),
     install_requires=requirements,
     author="plutoissaplanet",
